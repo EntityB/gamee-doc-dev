@@ -1,0 +1,135 @@
+Each working game must call basic functions at some point. Also it must implement event listeners on `gamee.emitter` object. 
+
+* [gamee.gameInit](#gameegameinit)
+* [gamee.gameReady](#gameegameready)
+* [gamee.updateScore](#gameeupdatescore)
+* [gamee.gameOver](#gameegameover)
+* [gamee.emitter](#gameeemitter)
+
+***
+
+### gamee.gameInit
+Initial handshake method, game notifies Gamee platform about its existence. After calling this command (before callback is being called), game is supposed to listen to [mute and unmute events](#gameeemitter).  
+In this phase, game is covered with half transparent layer.  
+
+**Simplest example**
+
+```javascript
+// signature: controller, controllerOptions, gameCapabilities, callback
+gamee.gameInit("OneButton", {}, [], function(error, data) {
+    if(error !== null)
+        throw error;
+
+    var myController = data.controller;
+    var sound = data.sound;
+... // your code that should make game ready
+});
+```
+
+***
+
+### gamee.gameReady
+Being called when game is ready to start. It signals game is able to recevie [start event](#gameeemitter). 
+
+
+**Simplest example**
+
+```javascript
+gamee.gameReady();
+```
+
+**Complete usage**
+
+```javascript
+gamee.gameReady(function(error) {
+    if(error !== null)
+        throw error;
+});
+```
+
+***
+
+### gamee.updateScore
+Updates the score making it visible for player. Also score is being saved. Should be called with every score change. 
+
+**Simplest example**
+
+```javascript
+gamee.updateScore(10); // set score to 10
+```
+
+**Another usage**
+
+```javascript
+gamee.updateScore(10, function(error) {
+    if(error !== null)
+        throw error;
+});
+```
+
+***
+
+### gamee.gameOver
+Notifies platform player ended the game. Game will be covered with half transparent layer with end screen again. 
+
+**Simplest example**
+
+```javascript
+gamee.gameOver();
+```
+
+**Another usage**
+
+```javascript
+gamee.gameOver(function(error) {
+    if(error !== null)
+        throw error;
+});
+```
+
+***
+
+### gamee.emitter
+Emitting these major events: "start", "pause", "resume", "mute" and "unmute". 
+
+**Simplest usage**
+ 
+ ```javascript
+// Will be emitted when user will start game or restart it. 
+gamee.emitter.addEventListener("start", function(event) {
+    ... // your code to start
+
+    event.detail.callback();
+}); 
+
+// Will be emitted when user paused the game. 
+gamee.emitter.addEventListener("pause", function(event) {
+    ... // your code to pause the game
+
+    event.detail.callback();
+}); 
+
+// Will be emitted after user resumes the game after 
+// pause or GameeApp suspension. 
+gamee.emitter.addEventListener("resume", function(event) {
+    ... // your code to unpause the game
+
+    event.detail.callback();
+});
+
+// Will be emitted when user clicks the mute button 
+// and the game must mute all game sounds.
+gamee.emitter.addEventListener("mute", function(event) {
+    ... // your code to make game silent
+
+    event.detail.callback();
+});
+
+// Will be emitted when user clicks the unmute button
+// and the game should unmute all game sounds.
+gamee.emitter.addEventListener("unmute", function(event) {
+    ... // your code to make game produce sound again
+
+    event.detail.callback();
+});
+```

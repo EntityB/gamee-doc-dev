@@ -1,0 +1,29 @@
+In order to connect your game with Gamee you have to do five simple steps:
+
+* Initial handshake with Gamee
+* Tell Gamee you are ready to start
+* Start game when signal occures
+* Update score during the game
+* Notify Gamee when game is over
+
+***
+
+### Initial handshake with Gamee
+
+After game 
+
+***
+
+### Tell Gamee you are ready to start
+
+***
+
+### Start game when signal occures
+
+***
+
+### Update score during the game
+
+***
+
+### Notify Gamee when game is over

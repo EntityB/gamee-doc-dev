@@ -1,0 +1,44 @@
+## Gamee Game Principles
+
+* No in-game menu. Players go directly to the game and our native UI guides them through the whole process.
+* We prefer games that are language independent. Try not to use any text if possible.
+* No adult content. Gamee games has no age minimum so the content must be appropriate for all ages.
+* Playable on iOS, Android and web. Since the games are coded in HTML 5 / Javascript it has to work on every mentioned platform.
+* Our default control system is portrait fullscreen. It's also possible to use some of our predefined controllers (link to the controllers section).
+* Games on gamee can't have any in app purchases.
+* 4 MB maximum size. We want games to load quickly, even on slow connections. So please make your games as small as you can.
+
+## Application
+
+
+### Game start
+
+Game are listed in the feed and we want users able to play with just two clicks. 
+
+![](https://raw.githubusercontent.com/EntityB/gamee-doc-dev/master/assets/IMG_0654.PNG)
+![](https://raw.githubusercontent.com/EntityB/gamee-doc-dev/master/assets/IMG_0648.PNG)
+
+When a player selects a game in the feed it shows the player this screen (via picture), and after tapping a button the game starts.
+
+![](https://raw.githubusercontent.com/EntityB/gamee-doc-dev/master/assets/IMG_0649.PNG)
+
+### Tutorial
+
+There can be a tutorial showing player how to control the game.
+
+![](https://raw.githubusercontent.com/EntityB/gamee-doc-dev/master/assets/IMG_0650.PNG)
+
+### Score
+
+It's displayed with our UI on top of the screen. So there is no need to show score to a player in any other way.
+
+![](https://raw.githubusercontent.com/EntityB/gamee-doc-dev/master/assets/IMG_0651.PNG)
+
+### Pause
+
+If you hit the pause button, the game stops. You can then go to the settings (three dots) and do some other actions there.
+
+![](https://raw.githubusercontent.com/EntityB/gamee-doc-dev/master/assets/IMG_0652.PNG)
+![](https://raw.githubusercontent.com/EntityB/gamee-doc-dev/master/assets/IMG_0653.PNG)
+
+

@@ -1,0 +1,168 @@
+Use one of following controllers. 
+
+* [OneButton](#onebutton)
+* [TwoButtons](#twobuttons)
+* [TwoActionButtons](#twoactionbuttons)
+* [TwoArrowsTwoButtons](#twoarrowstwobuttons)
+* [TwoArrowsOneButton](#twoarrowsonebutton)
+* [FourArrows](#fourarrows)
+* [FourButtons](#fourbuttons)
+* [FiveButtons](#fivebuttons)
+* [SixButtons](#sixbuttons)
+* [Joystick](#joystick)
+* [JoystickWithButton](#joystickwithbutton)
+* [Touch](#touch)
+* [FullScreen](#fullscreen)
+
+***
+
+### OneButton
+Controller with only one button. 
+Binded to spacebar on web. 
+
+***
+
+### TwoButtons
+Controller with two buttons.
+Binded to left and right arrow on web. 
+
+***
+
+### TwoActionButtons
+Controller with two action buttons (A,B). 
+Binded to left and right arrow on web. 
+
+***
+
+### TwoArrowsTwoButtons
+
+***
+
+### TwoArrowsOneButton
+Controller with two arrows and one action button
+***
+
+### FourArrows
+Controller with four arrow buttons.
+Binded to arrows on web.
+
+***
+
+### FourButtons
+Controller with four buttons. 
+Binded to up, left and right arrow and spacebar on web. 
+
+***
+
+### FiveButtons
+Controller with five buttons.
+Binded to arrows and spacebar on web. 
+
+***
+
+### SixButtons
+Controller with six buttons. 
+Binded to arrows, spacebar and ctrl on web. 
+
+***
+
+### Joystick
+JoystickController emits `change` event, after the position of the joystick is changed. 
+
+The position of the joystick is in the property `x` and `y`. The position on axis is between <-1, 1> (for x -1 is max left position, 1 max right position). [0.0, 0.0] is the center.
+
+```javascript
+gamee.gameInit("Joystick", {}, capabilities, function(error, data) {
+    if(error !== null)
+        throw error;
+
+    var myController = data.controller;
+
+    myController.on('touchstart', function(data) {
+        myController.on('change', function() {
+        new_x = myController.x;
+        nex_y = myController.y;
+    });
+
+... // your code that should make game ready
+});
+```
+
+***
+
+### JoystickWithButton
+JoystickButtonController is a `JoystickController` with one button.
+
+```javascript
+gamee.gameInit("JoystickWithButton", {}, capabilities, function(error, data) {
+    if(error !== null)
+        throw error;
+
+    var myController = data.controller;
+
+    myController.on('touchstart', function(data) {
+        myController.on('change', function() {
+        new_x = myController.x;
+        nex_y = myController.y;
+    });
+
+    joystickmyController.on('keydown', callback)
+
+... // your code that should make game ready
+});
+```
+
+***
+
+### Slider
+
+```javascript
+gamee.gameInit("Slider", {}, capabilities, function(error, data) {
+    if(error !== null)
+        throw error;
+
+    var myController = data.controller;
+
+... // your code that should make game ready
+});
+```
+
+***
+
+### Touch
+This controller has no buttons. Instead it has a touchpad which triggers *touchstart*, *touchend*, *touchmove*, *touchcancel*, *touchend* events (similar to [Touch event types](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent#Touch_event_types))
+
+The position of the touch is in the `data.position` argument as a *x* and *y* with the values between [0, 0] for the left top corner and [1, 1] for the bottom right corner ([0.5, 0.5] is the center).
+
+```javascript
+gamee.gameInit("Touch", {}, capabilities, function(error, data) {
+    if(error !== null)
+        throw error;
+
+    var myController = data.controller;
+
+    myController.on('touchstart', function(data) {
+        if (data.position.x < 0.5 && data.position.y < 0.5) {
+            console.log('touch in the top left quadrant');
+        }
+    });
+
+... // your code that should make game ready
+});
+```
+
+***
+
+### FullScreen
+Full screen controller is different from others. It doesn't show any controll elements and game runs in full screen mode instead of 640x640 window. 
+Controller doesn't provide any events. 
+
+```javascript
+gamee.gameInit("FullScreen", {}, capabilities, function(error, data) {
+    if(error !== null)
+        throw error;
+        
+    console.log(data.controller); // null
+
+});
+```

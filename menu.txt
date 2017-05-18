@@ -1,0 +1,8 @@
+1. [Gamee platform](gamee-platform)
+2. [Connect game in 5 steps](connect-game-in-5-steps)
+3. [All features](all-features)
+3. [Testing games & samples](testing-games-&-samples)
+5. [API](basic-usage)
+   * [Basic usage](basic-usage)
+   * [Controllers](controllers)
+   * [Advanced usage](advanced-usage)

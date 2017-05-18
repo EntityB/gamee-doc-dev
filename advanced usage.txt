@@ -1,0 +1,155 @@
+Gamee framework provides also other functionalities that might be helpful. Using them is optional. 
+
+* [gamee.gameInit](#gameegameinit-adv)
+* [gamee.updateScore](#gameeupdatescore-adv)
+* [gamee.gameLoadingProgress](#gameegameloadingprogress)
+* [gamee.gameSave](#gameegamesave)
+* [gamee.requestSocial](#gameerequestsocial)
+* [gamee.gameOver](#gameegameover-adv)
+* [gamee.emitter](#gameeemitter-adv)
+
+***
+
+### <a name="gameegameinit-adv"></a>gamee.gameInit
+In advance gameInit might pass gameCapabilities array which might contain "saveState", "replay", "ghostMode" and "social". 
+
+**Passing capabilities example**
+    
+```javascript
+var capabilities = ["saveState", "replay", "ghostMode", "social"];
+
+// signature: controller, controllerOptions, gameCapabilities, callback
+gamee.gameInit("OneButton", {}, capabilities, function(error, data) {
+    if(error !== null)
+        throw error;
+
+    var myController = data.controller;
+    var sound = data.sound;
+
+    // based on game capabilities, you will obtain additional data
+    var saveState = data.saveState;  // contains data you previously saved
+    var replayData = data.replayData;
+    var ghostData = data.replayData;
+    var socialData = data.socialData;
+
+... // your code that should make game ready
+});
+```
+
+***
+
+### <a name="gameeupdatescore-adv"></a>gamee.updateScore
+`updateScore` can be used to send ghost score
+
+**Passing ghost score**
+
+```javascript
+// signature score, ghostSign, callback
+gamee.updateScore(10, true, function(error) {
+    if(error !== null)
+        throw error;
+});
+```
+
+***
+
+### gamee.gameLoadingProgress
+This currently works only with Facebook. Report the progress of initial resource loading.  
+
+**Complete usage**
+
+```javascript
+gamee.gameLoadingProgress(50); // Assets are 50% loaded
+```
+
+***
+
+### gamee.gameSave
+
+**Simplest usage**
+
+```javascript
+gamee.gameSave("Data you want to save");
+```
+
+**Complete usage**
+
+```javascript
+var dataToSave = { 
+    life: 95,
+    score: 150
+};
+
+// Signature data, opt_share (default false), opt_callback
+gamee.gameSave(JSON.stringify(dataToSave), true, function(error) {
+    if(error !== null)
+        throw error;
+});
+```
+
+***
+
+### gamee.requestSocial 
+Will get more social data about Gamee players. 
+
+**Complete usage**
+
+```javascript
+gamee.requestSocial(function(error, data) {
+    if (data && data.friends) {
+        data.friends.forEach(function (friend) {
+            console.log(friend); 
+            // { name : "playerName", avatar : "url?", highScore: 1000 }
+    }
+});
+```
+
+***
+
+### <a name="gameegameover-adv"></a>gamee.gameOver
+In addition, gameOver might send data that might be later used for replay or for ghost mode. 
+
+**Complete usage**
+
+```javascript
+var replayData = {};
+
+... // assign something to replay data
+
+gamee.gameOver(replayData, function(error) {
+    if(error !== null)
+        throw error;
+});
+```
+
+***
+
+### <a name="gameeemitter-adv"></a>gamee.emitter
+Some events like "start" comes with params. In addition this object emits also other events: "ghostHide" and "ghostShow".
+
+**Complete usage**
+
+```javascript
+// Will be emitted when user will start game or restart it. 
+gamee.emitter.addEventListener("start", function(event) {
+    ... // your code to start
+    event.detail.opt_replay // if true, game must start as replay
+    event.detail.opt_ghostMode // if true, game must start in ghostMode 
+                               // (unless replay is true)
+    event.detail.opt_resetState // if true, game should toss its current saveState
+
+    event.detail.callback();
+}); 
+
+gamee.emitter.addEventListener("ghostHide", function(event) {
+    ... // your code to hide anything related to ghost in game. 
+
+    event.detail.callback();
+});
+
+gamee.emitter.addEventListener("ghostShow", function(event) {
+    ... // your code to show anything related to ghost in game again.
+
+    event.detail.callback();
+});
+```
